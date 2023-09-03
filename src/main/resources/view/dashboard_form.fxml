@@ -16,7 +16,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="416.0" layoutY="68.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #badc58;" text="Supplier" textFill="RED">
+      <Button layoutX="416.0" layoutY="68.0" mnemonicParsing="false" onAction="#btnSupplierOnAction" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: #badc58;" text="Supplier" textFill="RED">
          <font>
             <Font size="14.0" />
          </font>
@@ -37,5 +37,6 @@
             <Font name="System Bold" size="26.0" />
          </font>
       </Label>
+      <AnchorPane fx:id="node" layoutX="14.0" layoutY="139.0" prefHeight="250.0" prefWidth="572.0" style="-fx-background-color: lightblue;" />
    </children>
 </AnchorPane>
