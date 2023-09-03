@@ -9,6 +9,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class Launcher extends Application {
@@ -18,16 +19,20 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent rootNode = FXMLLoader.load(this.getClass()
-                .getResource("/view/main_form.fxml"));
 
-        Scene scene = new Scene(rootNode);
+        //load scene graph to this method
+        AnchorPane rootPane = FXMLLoader.load(this.getClass().getResource("/view/main_form.fxml"));
 
+        //set scene graph to the Scene
+        Scene scene = new Scene(rootPane);
+
+        //set Scene to the Primary Stage
         stage.setScene(scene);
-
         stage.setTitle("Main Form");
         stage.centerOnScreen();
 
+        //show stage
         stage.show();
+
     }
 }
