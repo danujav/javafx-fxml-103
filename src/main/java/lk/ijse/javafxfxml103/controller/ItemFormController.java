@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import lk.ijse.javafxfxml103.db.DbConnection;
 import lk.ijse.javafxfxml103.dto.ItemDto;
 import lk.ijse.javafxfxml103.dto.tm.ItemTm;
+import lk.ijse.javafxfxml103.model.ItemModel;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -61,6 +62,8 @@ public class ItemFormController {
     @FXML
     private TableColumn<?, ?> colUnitPrice;
 
+    private ItemModel itemModel = new ItemModel();
+
     public void initialize() {
         List<ItemDto> itemDtoList = getAllItems();
         setCellValueFactory();
@@ -77,7 +80,7 @@ public class ItemFormController {
     private void setItems(List<ItemDto> itemDtoList) {
         ObservableList<ItemTm> obList = FXCollections.observableArrayList();
 
-        for(ItemDto tm : itemDtoList) {
+        for (ItemDto tm : itemDtoList) {
             var itemTm = new ItemTm(
                     tm.getCode(),
                     tm.getDescription(),
@@ -101,8 +104,7 @@ public class ItemFormController {
             ResultSet resultSet = pstm.executeQuery();
 
 
-
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 String itemCode = resultSet.getString(1);
                 String itemDescription = resultSet.getString(2);
                 double itemUnitPrice = resultSet.getDouble(3);
@@ -125,25 +127,16 @@ public class ItemFormController {
         double unitPrice = Double.parseDouble(txtUnitPrice.getText());
         int qtyOnHand = Integer.parseInt(txtQtyOnHand.getText());
 
+        var dto = new ItemDto(code, description, unitPrice, qtyOnHand);
+
         try {
-            Connection con = DbConnection.getInstance().getConnection();
-
-            String sql = "INSERT INTO item VALUES(?, ?, ?, ?)";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, code);
-            pstm.setString(2, description);
-            pstm.setDouble(3, unitPrice);
-            pstm.setInt(4, qtyOnHand);
-
-            boolean isSaved = pstm.executeUpdate() > 0;
-
+            boolean isSaved = itemModel.saveItem(dto);
             if(isSaved) {
-                new Alert(Alert.AlertType.CONFIRMATION, "item added!").show();
+                new Alert(Alert.AlertType.CONFIRMATION, "item saved!").show();
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
-
     }
 
     @FXML
@@ -151,28 +144,14 @@ public class ItemFormController {
         String code = txtCode.getText();
 
         try {
-            Connection con = DbConnection.getInstance().getConnection();
-            String sql = "SELECT * FROM item WHERE code = ?";
-
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, code);
-
-            ResultSet resultSet = pstm.executeQuery();
-
-            if(resultSet.next()) {
-                String itemCode = resultSet.getString(1);
-                String itemDescription = resultSet.getString(2);
-                double itemUnitPrice = resultSet.getDouble(3);
-                int itemQtyOnHand = resultSet.getInt(4);
-
-                //since JDK11
-                var itemDto = new ItemDto(itemCode, itemDescription, itemUnitPrice, itemQtyOnHand);
-
-                setField(itemDto);
+            ItemDto dto = itemModel.searchItem(code);
+            if(dto != null) {
+                setField(dto);
+            } else {
+                new Alert(Alert.AlertType.WARNING, "oops! item not found!").show();
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
     }
 
