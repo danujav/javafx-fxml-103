@@ -14,11 +14,11 @@
             <Font name="Droid Sans Fallback" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="36.0" layoutY="96.0" prefHeight="35.0" prefWidth="243.0" promptText="code" />
-      <TextField layoutX="326.0" layoutY="96.0" prefHeight="35.0" prefWidth="243.0" promptText="description" />
-      <TextField layoutX="34.0" layoutY="165.0" prefHeight="35.0" prefWidth="243.0" promptText="unit price" />
-      <TextField layoutX="324.0" layoutY="165.0" prefHeight="35.0" prefWidth="243.0" promptText="s" />
-      <Button layoutX="471.0" layoutY="239.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #7ed6df;" text="Save">
+      <TextField fx:id="txtCode" layoutX="36.0" layoutY="96.0" onAction="#txtCodeOnAction" prefHeight="35.0" prefWidth="243.0" promptText="code" />
+      <TextField fx:id="txtDescription" layoutX="326.0" layoutY="96.0" prefHeight="35.0" prefWidth="243.0" promptText="description" />
+      <TextField fx:id="txtUnitPrice" layoutX="34.0" layoutY="165.0" prefHeight="35.0" prefWidth="243.0" promptText="unit price" />
+      <TextField fx:id="txtQtyOnHand" layoutX="324.0" layoutY="165.0" prefHeight="35.0" prefWidth="243.0" promptText="qty on hand" />
+      <Button layoutX="471.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #7ed6df;" text="Save">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
