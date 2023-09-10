@@ -94,4 +94,53 @@ public class CustomerFormController {
         txtAddress.setText("");
         txtSalary.setText("");
     }
+
+    public void btnUpdateOnAction(ActionEvent actionEvent) {
+        String id = txtId.getText();
+        String name = txtName.getText();
+        String address = txtAddress.getText();
+        double salary = Double.parseDouble(txtSalary.getText());
+
+        try {
+            Connection con = DbConnection.getInstance().getConnection();
+
+            String sql = "UPDATE customer set name = ?, address = ?, salary = ? WHERE id = ?";
+
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, name);
+            pstm.setString(2, address);
+            pstm.setDouble(3, salary);
+            pstm.setString(4, id);
+
+            boolean isUpdated = pstm.executeUpdate() > 0;
+
+            if(isUpdated) {
+                clearFields();
+                new Alert(Alert.AlertType.CONFIRMATION, "customer updated").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
+
+    public void btnDeleteOnAction(ActionEvent actionEvent) {
+        String id = txtId.getText();
+
+        try {
+            Connection con = DbConnection.getInstance().getConnection();
+            String sql = "DELETE FROM customer WHERE id = ?";
+
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, id);
+
+            boolean isDeleted = pstm.executeUpdate() > 0;
+
+            if(isDeleted) {
+                clearFields();
+                new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+    }
 }

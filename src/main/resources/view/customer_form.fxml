@@ -23,7 +23,17 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="362.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #badc58;" text="Clear">
+      <Button layoutX="362.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnUpdateOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: lightgreen;" text="Update">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="158.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #badc58;" text="Clear">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="257.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: Red;" text="Delete">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
