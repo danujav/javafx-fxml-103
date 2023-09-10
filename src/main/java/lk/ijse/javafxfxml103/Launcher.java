@@ -21,14 +21,14 @@ public class Launcher extends Application {
     public void start(Stage stage) throws Exception {
 
         //load scene graph to this method
-        AnchorPane rootPane = FXMLLoader.load(this.getClass().getResource("/view/login_form.fxml"));
+        AnchorPane rootPane = FXMLLoader.load(this.getClass().getResource("/view/customer_form.fxml"));
 
         //set scene graph to the Scene
         Scene scene = new Scene(rootPane);
 
         //set Scene to the Primary Stage
         stage.setScene(scene);
-        stage.setTitle("Login Form");
+        stage.setTitle("Customer Form");
         stage.centerOnScreen();
 
         //show stage
