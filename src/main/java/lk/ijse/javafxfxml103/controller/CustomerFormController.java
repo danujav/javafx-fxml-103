@@ -12,6 +12,7 @@ import lk.ijse.javafxfxml103.db.DbConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CustomerFormController {
@@ -38,6 +39,7 @@ public class CustomerFormController {
 
             boolean isSaved = pstm.executeUpdate() > 0;
             if(isSaved) {
+                clearFields();
                 new Alert(Alert.AlertType.CONFIRMATION, "customer saved!").show();
             }
 
@@ -45,5 +47,51 @@ public class CustomerFormController {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
         }
 
+    }
+
+    public void txtIdOnAction(ActionEvent actionEvent) {
+        String id = txtId.getText();
+
+        try {
+            Connection con = DbConnection.getInstance().getConnection();
+
+            String sql = "SELECT * FROM customer WHERE id = ?";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, id);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+            if(resultSet.next()) {
+                String cusId = resultSet.getString(1);
+                String cusName = resultSet.getString(2);
+                String cusAddress = resultSet.getString(3);
+                double cusSalary = resultSet.getDouble(4);
+
+                fillFields(cusId, cusName, cusAddress, cusSalary);
+            } else {
+                new Alert(Alert.AlertType.WARNING, "oops! customer not found!").show();
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void fillFields(String cusId, String cusName, String cusAddress, double cusSalary) {
+        txtId.setText(cusId);
+        txtName.setText(cusName);
+        txtAddress.setText(cusAddress);
+        txtSalary.setText(String.valueOf(cusSalary));
+    }
+
+    public void btnClearOnAction(ActionEvent actionEvent) {
+        clearFields();
+    }
+
+    private void clearFields() {
+        txtId.setText("");
+        txtName.setText("");
+        txtAddress.setText("");
+        txtSalary.setText("");
     }
 }

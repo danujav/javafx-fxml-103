@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.javafxfxml103.controller.CustomerFormController">
    <children>
       <Label layoutX="218.0" layoutY="33.0" text="Customer Manage">
@@ -15,16 +14,16 @@
             <Font name="Droid Sans Fallback" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtId" layoutX="36.0" layoutY="96.0" prefHeight="35.0" prefWidth="243.0" promptText="Id" />
+      <TextField fx:id="txtId" layoutX="36.0" layoutY="96.0" onAction="#txtIdOnAction" prefHeight="35.0" prefWidth="243.0" promptText="Id" />
       <TextField fx:id="txtName" layoutX="326.0" layoutY="96.0" prefHeight="35.0" prefWidth="243.0" promptText="Name" />
       <TextField fx:id="txtAddress" layoutX="34.0" layoutY="165.0" prefHeight="35.0" prefWidth="243.0" promptText="Address" />
       <TextField fx:id="txtSalary" layoutX="324.0" layoutY="165.0" prefHeight="35.0" prefWidth="243.0" promptText="Salary" />
-      <Button onAction="#btnSaveOnAction" layoutX="471.0" layoutY="239.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #7ed6df;" text="Save">
+      <Button layoutX="471.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnSaveOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #7ed6df;" text="Save">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="362.0" layoutY="239.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #badc58;" text="Clear">
+      <Button layoutX="362.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="86.0" style="-fx-background-color: #badc58;" text="Clear">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
