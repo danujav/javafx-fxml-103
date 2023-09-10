@@ -5,17 +5,22 @@ package lk.ijse.javafxfxml103.controller;
     @created 9/3/23 - 3:38 PM   
 */
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.javafxfxml103.db.DbConnection;
 import lk.ijse.javafxfxml103.dto.ItemDto;
+import lk.ijse.javafxfxml103.dto.tm.ItemTm;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -40,15 +45,40 @@ public class ItemFormController {
     @FXML
     private TextField txtUnitPrice;
 
+    @FXML
+    private TableView<ItemTm> tblItem;
+
+    @FXML
+    private TableColumn<?, ?> colDescription;
+
+    @FXML
+    private TableColumn<?, ?> colId;
+
+    @FXML
+    private TableColumn<?, ?> colQtyOnHand;
+
+    @FXML
+    private TableColumn<?, ?> colUnitPrice;
+
     public void initialize() {
         List<ItemDto> itemDtoList = getAllItems();
-        printItems(itemDtoList);
+        setItems(itemDtoList);
     }
 
-    private void printItems(List<ItemDto> itemDtoList) {
-        for(ItemDto item : itemDtoList) {
-            System.out.println(item);
+    private void setItems(List<ItemDto> itemDtoList) {
+        ObservableList<ItemTm> obList = FXCollections.observableArrayList();
+
+        for(ItemDto tm : itemDtoList) {
+            var itemTm = new ItemTm(
+                    tm.getCode(),
+                    tm.getDescription(),
+                    tm.getUnitPrice(),
+                    tm.getQtyOnHand()
+            );
+            obList.add(itemTm);
         }
+
+        tblItem.setItems(obList);
     }
 
     private List<ItemDto> getAllItems() {
