@@ -38,6 +38,10 @@ public class ItemFormController {
     @FXML
     private TextField txtUnitPrice;
 
+    public void initialize() {
+        System.out.println("Huree! Item Form Just Loaded!");
+    }
+
     @FXML
     void btnSaveOnAction(ActionEvent event) {
         String code = txtCode.getText();

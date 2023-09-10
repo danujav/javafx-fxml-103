@@ -21,7 +21,7 @@ public class Launcher extends Application {
     public void start(Stage stage) throws Exception {
 
         //load scene graph to this method
-        AnchorPane rootPane = FXMLLoader.load(this.getClass().getResource("/view/item_form.fxml"));
+        AnchorPane rootPane = FXMLLoader.load(this.getClass().getResource("/view/dashboard_form.fxml"));
 
         //set scene graph to the Scene
         Scene scene = new Scene(rootPane);

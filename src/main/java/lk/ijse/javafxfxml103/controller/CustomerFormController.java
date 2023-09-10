@@ -21,6 +21,10 @@ public class CustomerFormController {
     public TextField txtAddress;
     public TextField txtId;
 
+    public void initialize() {
+        System.out.println("Customer form just loaded!");
+    }
+
     public void btnSaveOnAction(ActionEvent actionEvent) {
         String id = txtId.getText();
         String name = txtName.getText();
