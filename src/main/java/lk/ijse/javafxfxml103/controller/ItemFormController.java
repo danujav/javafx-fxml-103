@@ -22,6 +22,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemFormController {
     public AnchorPane rootNode;
@@ -39,7 +41,42 @@ public class ItemFormController {
     private TextField txtUnitPrice;
 
     public void initialize() {
-        System.out.println("Huree! Item Form Just Loaded!");
+        List<ItemDto> itemDtoList = getAllItems();
+        printItems(itemDtoList);
+    }
+
+    private void printItems(List<ItemDto> itemDtoList) {
+        for(ItemDto item : itemDtoList) {
+            System.out.println(item);
+        }
+    }
+
+    private List<ItemDto> getAllItems() {
+        List<ItemDto> itemDtoList = new ArrayList<>();
+
+        try {
+            Connection con = DbConnection.getInstance().getConnection();
+            String sql = "SELECT * FROM item";
+            PreparedStatement pstm = con.prepareStatement(sql);
+
+            ResultSet resultSet = pstm.executeQuery();
+
+
+
+            while(resultSet.next()) {
+                String itemCode = resultSet.getString(1);
+                String itemDescription = resultSet.getString(2);
+                double itemUnitPrice = resultSet.getDouble(3);
+                int itemQtyOnHand = resultSet.getInt(4);
+
+                var itemDto = new ItemDto(itemCode, itemDescription, itemUnitPrice, itemQtyOnHand);
+                itemDtoList.add(itemDto);
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
+
+        return itemDtoList;
     }
 
     @FXML
