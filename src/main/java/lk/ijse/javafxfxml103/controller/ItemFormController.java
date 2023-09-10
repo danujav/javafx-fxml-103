@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.javafxfxml103.db.DbConnection;
@@ -62,7 +63,15 @@ public class ItemFormController {
 
     public void initialize() {
         List<ItemDto> itemDtoList = getAllItems();
+        setCellValueFactory();
         setItems(itemDtoList);
+    }
+
+    private void setCellValueFactory() {
+        colId.setCellValueFactory(new PropertyValueFactory<>("code"));
+        colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
+        colQtyOnHand.setCellValueFactory(new PropertyValueFactory<>("qtyOnHand"));
     }
 
     private void setItems(List<ItemDto> itemDtoList) {
