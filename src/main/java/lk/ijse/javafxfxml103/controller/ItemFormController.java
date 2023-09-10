@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.javafxfxml103.db.DbConnection;
+import lk.ijse.javafxfxml103.dto.ItemDto;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -84,7 +85,10 @@ public class ItemFormController {
                 double itemUnitPrice = resultSet.getDouble(3);
                 int itemQtyOnHand = resultSet.getInt(4);
 
-                setField(itemCode, itemDescription, itemUnitPrice, itemQtyOnHand);
+                //since JDK11
+                var itemDto = new ItemDto(itemCode, itemDescription, itemUnitPrice, itemQtyOnHand);
+
+                setField(itemDto);
             }
 
         } catch (SQLException e) {
@@ -92,11 +96,11 @@ public class ItemFormController {
         }
     }
 
-    private void setField(String itemCode, String itemDescription, double itemUnitPrice, int itemQtyOnHand) {
-        txtCode.setText(itemCode);
-        txtDescription.setText(itemDescription);
-        txtUnitPrice.setText(String.valueOf(itemUnitPrice));
-        txtQtyOnHand.setText(String.valueOf(itemQtyOnHand));
+    private void setField(ItemDto itemDto) {
+        txtCode.setText(itemDto.getCode());
+        txtDescription.setText(itemDto.getDescription());
+        txtUnitPrice.setText(String.valueOf(itemDto.getUnitPrice()));
+        txtQtyOnHand.setText(String.valueOf(itemDto.getQtyOnHand()));
     }
 
     public void btnBackOnAction(ActionEvent actionEvent) throws IOException {
